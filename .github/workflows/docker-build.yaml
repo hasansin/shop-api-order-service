@@ -58,9 +58,9 @@ jobs:
 
         run: |
           gcloud config set compute/region us-central1
-          gcloud config set compute/zone us-central1-c
+          gcloud config set compute/zone us-central-c
           gcloud container clusters get-credentials autopilot-order-service-ctse
-          envsubst < deployment.yml
-          envsubst < deployment.yml | kubectl apply -f -
+          envsubst < deployment.yaml
+          envsubst < deployment.yaml | kubectl apply -f -
           kubectl rollout status -w deployment/order-service
           kubectl get all
