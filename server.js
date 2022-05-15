@@ -19,7 +19,7 @@ mongoose
 	})
 	.then(() => {
 		app.listen(PORT, () => {
-			console.log(`order service connected to mongodb and started listening on port ${PORT}`);
+			console.log(`Order service connected to mongodb and started listening on port ${PORT}`);
 		});
 	})
 	.catch(err => {
