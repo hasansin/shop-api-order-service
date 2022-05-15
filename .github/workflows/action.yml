@@ -22,5 +22,6 @@ jobs:
           image: weeranh/order-service
           tags: v1, latest
           registry: docker.io
+          dockerfile: ./order-service/
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
