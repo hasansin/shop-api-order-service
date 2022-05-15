@@ -25,11 +25,11 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/order-service:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }}
       - name: Run the image in a container
         uses: addnab/docker-run-action@v3
         with:
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/order-service:latest
+          image: ${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }}
           run: |
             echo "runing the docker image"
             echo "Testing the nodejs  app endpoints"
