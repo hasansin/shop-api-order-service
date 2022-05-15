@@ -8,7 +8,7 @@
 		"start": "node server.js"
 	},
 	"keywords": [],
-	"author": "Thushara Thiwanka <thusharathiwanka123@gmail.com>",
+	"author": "Nanduni Weerasinghe <it19070704@my.sliit.lk>",
 	"license": "MIT",
 	"dependencies": {
 		"axios": "^0.27.2",
