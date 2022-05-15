@@ -62,5 +62,4 @@ jobs:
           gcloud container clusters get-credentials ${{ secrets.GCP_CLUSTERNAME }}
           envsubst < deployment.yaml
           envsubst < deployment.yaml | kubectl apply -f -
-          kubectl rollout status -w deployment/order-service
           kubectl get all
