@@ -37,14 +37,16 @@ jobs:
   deploy_to_google_cloud:
     name: Deploy to GCP
     runs-on: ubuntu-latest
-    # only deploy to GPC if and after deploying to Heroku successed
+
+    needs: [build]
+
     steps:
       - name: checkout repo
         uses: actions/checkout@v2
 
       # Setup gcloud CLI
       - name: setup gcloud CLI
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GCP_PROJECT }}
           # this is the json key of the service account created on the project
