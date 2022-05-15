@@ -59,7 +59,8 @@ jobs:
         run: |
           gcloud config set compute/region us-central1
           gcloud config set compute/zone us-central1-c
-          gcloud container clusters get-credentials autopilot-order-service-ctse --zone=us-central1
+          gcloud config set project ${{ secrets.GCP_PROJECT }}
+          gcloud container clusters get-credentials ${{ secrets.GCP_CLUSTERNAME }} --zone=us-central1
           envsubst < deployment.yaml
           envsubst < deployment.yaml | kubectl apply -f -
           kubectl rollout status -w deployment/order-service
