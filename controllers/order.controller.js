@@ -39,7 +39,7 @@ const getOrders = async (req, res) => {
 const getByIdOrder = async (req, res) => {
 	try {
 		const Order = await order.findById(req.params.id);
-		res.status(200).json("ORDER");
+		res.status(200).json(Order);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
