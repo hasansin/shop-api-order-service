@@ -16,12 +16,12 @@ const addOrder = async (req, res) => {
 	}
 };
 
-const getAllOrders = async (req, res) => {
+const getAllOrders = async (request, response) => {
 	try {
 		const orders = await order.find();
-		res.status(200).json(orders);
+		response.status(200).json(orders);
 	} catch (error) {
-		res.status(404).json({ message: error.message });
+		response.status(404).json({ message: error.message });
 	}
 };
 
