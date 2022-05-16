@@ -70,4 +70,4 @@ jobs:
           gcloud config set compute/zone us-central1
           gcloud container clusters get-credentials ${{ secrets.GCP_CLUSTERNAME }}
           gcloud config set run/platform gke
-          gcloud run deploy --image=gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }} --cluster=${{ secrets.GCP_CLUSTERNAME }}
+          gcloud run deploy --image=gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }}
