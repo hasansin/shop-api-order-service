@@ -30,7 +30,7 @@ const getOrders = async (req, res) => {
 		const userId = req.body.userId;
 		const orders = await order.find({ "customer._id": userId });
 
-		res.status(200).json(orders);
+		res.status(200);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
@@ -39,7 +39,7 @@ const getOrders = async (req, res) => {
 const getByIdOrder = async (req, res) => {
 	try {
 		const Order = await order.findById(req.params.id);
-		res.status(200).send("get all");
+		res.status(200).json(Order);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
