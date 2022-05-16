@@ -69,8 +69,5 @@ jobs:
           credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
       - name: Deploy
         run: |
-
-          gcloud config set run/cluster_location us-central1
           gcloud config set run/platform gke
-          gcloud container clusters get-credentials ${{ secrets.GCP_CLUSTERNAME }} --region us-central1 --project ${{ secrets.GCP_PROJECT }} 
-          gcloud run deploy ${{ secrets.GCP_PROJECT }} --image=gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }} --cluster=${{ secrets.GCP_CLUSTERNAME }} --cluster-location=us-central1
+          gcloud run deploy order-service --image=gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }} --cluster=${{ secrets.GCP_CLUSTERNAME }} --cluster-location=us-central1 --project=${{ secrets.GCP_PROJECT }} --port=5000 --region=us-central1 --allow-unauthenticated --platform=managed
