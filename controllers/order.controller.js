@@ -19,7 +19,7 @@ const addOrder = async (req, res) => {
 const getAllOrders = async (request, response) => {
 	try {
 		const orders = await order.find();
-		response.status(200).json(orders);
+		response.status(200);
 	} catch (error) {
 		response.status(404).json({ message: error.message });
 	}
@@ -29,7 +29,8 @@ const getOrders = async (req, res) => {
 	try {
 		const userId = req.body.userId;
 		const orders = await order.find({ "customer._id": userId });
-		res.status(200);
+
+		res.status(200).json(orders);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
