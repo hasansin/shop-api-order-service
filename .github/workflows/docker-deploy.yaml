@@ -1,4 +1,10 @@
-name: Docker Build Deploy
+name: Docker Build &  Deploy tocloud
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
@@ -38,7 +44,6 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v2
 
-      # Setup gcloud CLI
       - name: setup gcloud CLI
         uses: google-github-actions/setup-gcloud@v0
         with:
@@ -46,22 +51,19 @@ jobs:
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           export_default_credentials: true
 
-      - name: configure docker
-        run: gcloud auth configure-docker
-
-      - name: Pull the image
-        run: docker pull ${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }}
-
-      - name: tage image
-        run: docker tag ${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }} gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }}
-
-      - name: push image
-        run: docker push gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }}
       - id: "auth"
         uses: "google-github-actions/auth@v0"
         with:
           credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
-      - name: Deploy
+
+      - uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: get pods
+
+      - name: deploy
         run: |
-          gcloud config set run/platform gke
-          gcloud run deploy order-service --image=gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }}  --project=${{ secrets.GCP_PROJECT }} --port=5000 --region=us-central1 --allow-unauthenticated --platform=managed
+          kubectl create deployment order-service --image=${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }} -o yaml > deployment.yaml
+          kubectl apply -f deployment.yaml
+          kubectl apply -f service.yaml
