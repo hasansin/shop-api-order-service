@@ -48,6 +48,7 @@ jobs:
       - name: setup gcloud CLI
         uses: google-github-actions/setup-gcloud@v0
         with:
+          project_id: ${{ secrets.GCP_PROJECT }}
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           export_default_credentials: true
 
@@ -71,4 +72,4 @@ jobs:
 
           gcloud config set run/cluster_location us-central1
           gcloud config set run/platform gke
-          gcloud run deploy order-service --image=gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }} --cluster=${{ secrets.GCP_CLUSTERNAME }} --cluster-location=us-central1
+          gcloud run deploy ${{ secrets.GCP_PROJECT }} --image=gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }} --cluster=${{ secrets.GCP_CLUSTERNAME }} --cluster-location=us-central1
