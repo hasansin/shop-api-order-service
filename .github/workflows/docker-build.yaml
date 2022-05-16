@@ -56,7 +56,8 @@ jobs:
         run: docker pull ${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }}
       - name: tage image
         run: docker tag ${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }} gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }}
-      - name: docker push gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }}
+      - name: push image
+        run: docker push gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }}
       - name: Deploy
         run: |
           gcloud config set project ${{ secrets.GCP_PROJECT }}
