@@ -55,10 +55,9 @@ jobs:
         uses: "google-github-actions/auth@v0"
         with:
           credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
-
+      - run: gcloud container clusters get-credentials ${{secrets.CLUSERNAME}} --zone us-central1
       - name: deploy
         run: |
-          gcloud container clusters get-credentials ${{secrets.CLUSERNAME}}
-          kubectl create deployment order-service --image=${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }} -o yaml  > deployment.yaml
+
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
