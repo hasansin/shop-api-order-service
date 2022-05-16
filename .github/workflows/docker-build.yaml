@@ -68,6 +68,7 @@ jobs:
           credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
       - name: Deploy
         run: |
+          gcloud config set compute/zone us-central1-f
           gcloud container clusters get-credentials ${{ secrets.GCP_CLUSTERNAME }}
           gcloud config set run/cluster_location us-central1
           gcloud config set run/platform gke ${{ secrets.GCP_CLUSTERNAME }}
