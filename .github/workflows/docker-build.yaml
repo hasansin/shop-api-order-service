@@ -70,4 +70,5 @@ jobs:
       - name: Deploy
         run: |
           gcloud config set run/platform gke
+          gcloud beta run services add-iam-policy-binding --region=us-central1 --member=allUsers --role=roles/run.invoker order-service
           gcloud run deploy order-service --image=gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }}  --project=${{ secrets.GCP_PROJECT }} --port=5000 --region=us-central1 --allow-unauthenticated --platform=managed
