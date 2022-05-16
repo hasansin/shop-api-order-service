@@ -63,7 +63,10 @@ jobs:
 
       - name: push image
         run: docker push gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }}
-
+      - id: "auth"
+        uses: "google-github-actions/auth@v0"
+        with:
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
       - name: Deploy
         run: |
           gcloud auth login
