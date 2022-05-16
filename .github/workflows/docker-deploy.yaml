@@ -61,8 +61,7 @@ jobs:
       - run: gcloud container clusters get-credentials ${{secrets.GCP_CLUSTERNAME}} --zone us-central1
       - name: deploy
         run: |
-
-          kubectl apply -f deployment.yaml
+          kubectl delete & apply -f deployment.yaml
           kubectl apply -f service.yaml
           kubectl get services -o wide
           kubectl rollout status deployment/order-service

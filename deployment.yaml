@@ -20,6 +20,7 @@ spec:
       containers:
         - image: weeranh/order-service
           name: order-service
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
           resources: {}
