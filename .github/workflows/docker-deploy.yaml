@@ -1,4 +1,4 @@
-name: Docker Build &  Deploy tocloud
+name: Docker Build &  Deploy to Cloud
 
 on:
   push:
@@ -55,7 +55,7 @@ jobs:
         uses: "google-github-actions/auth@v0"
         with:
           credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
-      - run: gcloud container clusters get-credentials ${{secrets.CLUSTERNAME}} --zone us-central1
+      - run: gcloud container clusters get-credentials ${{secrets.GCP_CLUSTERNAME}} --zone us-central1
       - name: deploy
         run: |
 
