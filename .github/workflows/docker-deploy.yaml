@@ -58,6 +58,7 @@ jobs:
 
       - name: deploy
         run: |
+          gcloud container clusters get-credentials ${{secrets.CLUSERNAME}}
           kubectl create deployment order-service --image=${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }} -o yaml  > deployment.yaml
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
