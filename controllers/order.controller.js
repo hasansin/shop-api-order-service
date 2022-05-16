@@ -19,7 +19,7 @@ const addOrder = async (req, res) => {
 const getAllOrders = async (request, response) => {
 	try {
 		const orders = await order.find();
-		response.status(200).send("order service");
+		response.status(200).json(orders);
 	} catch (error) {
 		response.status(404).json({ message: error.message });
 	}
