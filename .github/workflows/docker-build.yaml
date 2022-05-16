@@ -71,4 +71,4 @@ jobs:
 
           gcloud config set run/cluster_location us-central1
           gcloud config set run/platform gke
-          gcloud run deploy order-service --image=gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }} --cluster=${{ secrets.GCP_CLUSTERNAME }}
+          gcloud run deploy order-service --image=gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.DOCKER_USERNAME }}/order-service:${{ github.sha }} --cluster=${{ secrets.GCP_CLUSTERNAME }} --cluster-location=us-central1
